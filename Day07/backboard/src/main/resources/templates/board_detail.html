@@ -1,0 +1,47 @@
+<!-- layout.html thymeleaf 페이지 로드 -->
+<html layout:decorate="~{layout}">
+    <div layout:fragment="content" class="container my-3">
+        <!-- 게시판 영역 -->
+        <div class="row">
+            <div class="col">
+                <!-- 게시판 상세글 -->
+                <div class="card my-3 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="border-bottom py-2 text-primary" th:text="${board.title}"></h2>
+                        <div class="card-text" th:text="${board.content}"></div>
+                        <div class="badge bg-light text-dark p-1 text-start">
+                            <div th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- 댓글 수 표시 영역 -->
+        <div class="row">
+            <div class="col">
+                <h4 th:text="|${#lists.size(board.replyList)}개의 댓글이 있습니다|"></h4>
+            </div>
+        </div>
+    
+        <!-- 댓글리스트 영역 -->
+        <div class="row">
+            <div class="col">
+                <div class="card my-2" th:each="reply : ${board.replyList}">
+                    <div class="card-body">
+                        <div class="card-text" th:text="${reply.content}"></div>
+                        <div class="badge bg-light text-dark p-1 text-start">
+                            <div th:text="${#temporals.format(reply.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- 댓글 작성 영역 -->
+        <form method="post" th:action="@{|/reply/create/${board.bno}|}" class="my-3">
+            <textarea name="content" id="content" rows="5" class="form-control mb-1"></textarea>
+            <input type="submit" value="댓글저장" class="btn btn-primary">
+        </form>
+    </div>
+</html>
