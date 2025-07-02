@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cglib.core.Local;
 
 import com.pknu.backboard.entity.Board;
 import com.pknu.backboard.repository.BoardRepository;
@@ -38,6 +39,18 @@ class BackboardApplicationTests {
 
 		this.boardRepository.save(board1); // INSERT 실행
 		this.boardRepository.save(board2); // INSERT 실행
+	}
+
+	@Test	// INSERT INTO 200개만
+	void testInsertDummyJpa() {
+		for (int i = 0; i < 200; i++) {
+			Board board = new Board();
+			board.setTitle(String.format("테스트 더미 데이터 %03d", i));
+			board.setContent("별 내용 없심더");
+			board.setCreateDate(LocalDateTime.now());
+
+			this.boardRepository.save(board);
+		}
 	}
 
 	@Test // SELECT * 테스트
