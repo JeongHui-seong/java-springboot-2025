@@ -8,7 +8,7 @@ import com.pknu.backboard.entity.Board;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    Board findByTitle(String title); // 제목으로 검색
+    Board findByTitle(String title);  // 제목으로 검색.
 
-    List<Board> findByTitleLike(String title);  // 비슷한 제목으로 검색. 
-}
+    List<Board> findByTitleLike(String title);  // 비슷한 제목으로 검색.
+} 

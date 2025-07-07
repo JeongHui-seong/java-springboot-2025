@@ -32,7 +32,7 @@ public class Reply {
     @ManyToOne   // 사용자가 여러개의 글을 작성가능
     private Member writer;
 
-    // 좋아요 클릭사용자 추가
+    // 좋아요클릭 사용자 추가
     @ManyToMany
     private Set<Member> like;
     

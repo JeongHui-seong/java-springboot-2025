@@ -5,7 +5,6 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,10 +48,12 @@ public class BoardController {
     //     return "board_list";  // board_list.html 필요
     // }
     @GetMapping("/list")  // 각 상세 URL만 작성
-    public String getList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        Page<Board> boardPaging = this.boardService.getBoardList(page);        
+    public String getList(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                          @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+        Page<Board> boardPaging = this.boardService.getBoardList(page, keyword);        
         
         model.addAttribute("boardPaging", boardPaging);
+        model.addAttribute("keyword", keyword);
         return "board/board_list";  // board_list.html 필요
     }
     
@@ -119,7 +120,7 @@ public class BoardController {
     public String getDelete(@PathVariable("bno") Long bno, Principal principal) {
         Board board = this.boardService.getBoardOne(bno);
 
-        if(!board.getWriter().getUsername().equals(principal.getName())) {
+        if (!board.getWriter().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다");
         }
 
@@ -132,10 +133,11 @@ public class BoardController {
     @GetMapping("/like/{bno}")
     public String getBoardLike(@PathVariable("bno") Long bno, Principal principal) {
         Board board = this.boardService.getBoardOne(bno);
-        Member member = this.memberService.getMember(principal.getName());  // 로그인한 사용자의 멤버를 가져오기
+        Member member = this.memberService.getMember(principal.getName()); // 로그인 사용자의 멤버를 가져오기
 
         this.boardService.putBoardLike(board, member);
 
         return String.format("redirect:/board/detail/%s", bno);
     }
+    
 }

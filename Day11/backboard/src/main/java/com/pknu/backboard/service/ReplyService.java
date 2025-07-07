@@ -42,8 +42,8 @@ public class ReplyService {
     }
 
     public void putReplyLike(Reply reply, Member member) {
-        reply.getLike().add(member);    // 좋아요
-
-        this.replyRepository.save(reply);   // UPDATE
+        reply.getLike().add(member);
+        
+        this.replyRepository.save(reply);
     }
 }

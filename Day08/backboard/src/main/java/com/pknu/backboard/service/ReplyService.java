@@ -23,7 +23,7 @@ public class ReplyService {
         Reply reply = new Reply();
         reply.setContent(content);
         reply.setCreateDate(LocalDateTime.now());
-        reply.setBoard(board); // 부모 테이블 지정. board.bno가 reply에 저장
+        reply.setBoard(board); // 부모테이블 지정. board.bno가 Reply에 저장
 
         this.replyRepository.save(reply);
     }

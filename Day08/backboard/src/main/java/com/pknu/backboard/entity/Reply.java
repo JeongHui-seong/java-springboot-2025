@@ -19,21 +19,21 @@ import lombok.Setter;
 @Entity
 public class Reply {
 
-    @Id // PK -> SpringBoot에서 만드는 Entity는 PK가 없으면 입력 안됨
+    @Id // PK -> SpringBoot에서 만드는 Entity는 PK가 없으면 입력이 안됨
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long rno; // Reply 테이블의 PK
+    private Long rno;  // Reply 테이블의 PK, reply-no
 
     @Column(length = 1000)
-    private String content;
-
+    private String content; // 댓글은 제목컬럼이 필요없음
+    
     @CreatedDate
-    @Column(updatable = false) // 한 번 작성 후 수정하지 않음
+    @Column(updatable = false)  // 한번 작성 후 수정하지 않음
     private LocalDateTime createDate; // 게시글 작성일
 
     @LastModifiedDate
     private LocalDateTime modifyDate; // 게시글 수정일
 
-    // ERD N : 1로 관계정립
+    // ERD N:1로 관계정립
     @ManyToOne
-    private Board board;
+    private Board board; 
 }

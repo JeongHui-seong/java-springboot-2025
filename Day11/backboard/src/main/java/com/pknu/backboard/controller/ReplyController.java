@@ -20,9 +20,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RequestMapping("/reply")
@@ -54,16 +55,15 @@ public class ReplyController {
         }
         this.replyService.setReply(board, replyForm.getContent(), member);        
         return String.format("redirect:/board/detail/%s", bno);
-    }
+    }    
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/like/{rno}")
     public String getReplyLike(@PathVariable("rno") Long rno, Principal principal) {
         Reply reply = this.replyService.getReply(rno);
-        Member member = this.memberService.getMember(principal.getName());  // 로그인한 사용자의 멤버를 가져오기
+        Member member = this.memberService.getMember(principal.getName());
 
         this.replyService.putReplyLike(reply, member);
-
         return String.format("redirect:/board/detail/%s", reply.getBoard().getBno());
-    }
+    }    
 }

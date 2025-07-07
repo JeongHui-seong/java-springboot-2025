@@ -42,14 +42,14 @@ public class Board {
     @Column(length = 250)
     private String title; // 게시판 제목
 
-    @Column(length = 8000)
+    @Column(length = 4000)
     private String content; // 게시글 내용
 
     // 작성자 추가
     @ManyToOne   // 사용자가 여러개의 글을 작성가능
     private Member writer;
 
-    // 좋아요 클릭사용자 추가
+    // 좋아요클릭 사용자 추가
     @ManyToMany
     private Set<Member> like;
 

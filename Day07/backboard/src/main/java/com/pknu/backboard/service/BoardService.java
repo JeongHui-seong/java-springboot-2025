@@ -12,7 +12,7 @@ import com.pknu.backboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor 
 public class BoardService {
 
     @Autowired
@@ -20,12 +20,12 @@ public class BoardService {
 
     // SELECT * FROM board
     public List<Board> getBoardList() {
-        return this.boardRepository.findAll();  // SELECT *
+        return this.boardRepository.findAll();
     }
 
     // SELECT * FROM board WHERE bno = ?
-    public Board getBoardOne(Long bno) {
-        Optional<Board> opBoard = this.boardRepository.findById(bno);
+    public Board getBoardOne(Long bno) { 
+        Optional<Board> opBoard = this.boardRepository.findById(bno);  
         if (opBoard.isPresent()) {
             return opBoard.get();
         } else {

@@ -20,19 +20,20 @@ public class Board {
 
     @Id // PK
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long bno;       // Board 테이블의 PK, bno
+    private Long bno; // Board 테이블의 PK, bno
 
     // @Column(name="subject", length = 250)
     @Column(length = 250)
-    private String title;   // 게시판 제목
+    private String title; // 게시판 제목
 
     @Column(length = 8000)
     private String content; // 게시글 내용
 
     @CreatedDate
-    @Column(updatable = false)  // 한 번 작성 후 수정하지 않음
-    private LocalDateTime createDate;   // 게시글 작성일
+    @Column(updatable = false)  // 한번 작성 후 수정하지 않음
+    private LocalDateTime createDate; // 게시글 작성일
 
     @LastModifiedDate
-    private LocalDateTime modifyDate;   // 게시글 수정일
+    private LocalDateTime modifyDate; // 게시글 수정일
+
 }

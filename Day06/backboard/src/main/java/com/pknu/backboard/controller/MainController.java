@@ -11,8 +11,8 @@ public class MainController {
 
     @GetMapping("/start") // RESTful URL로 웹사이트 요청
     public String start() {
-        log.info("/start 실행"); // 로그 출력
-        return "start"; // resources/templates/start.html을 리턴해서 화면에 출력
+        log.info("/start 실행!"); // 로그 출력
+        return "start"; // resources/templates/start.html 을 리턴해서 화면에 출력
     }
-    
+
 }
