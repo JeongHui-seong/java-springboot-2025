@@ -1275,8 +1275,38 @@ https://github.com/user-attachments/assets/6c18f07c-a836-4d91-9f1c-8ff51d7b8fdb
     8. Bootstrap 디자인 접목
 
 5. RestAPI 서비스
+    1. controller.RestaurantRestController 생성
+
 6. DB에 저장
- 
+    1. build.gradle 의존성 추기
+
+        ```groovy
+        runtimeOnly 'com.oracle.database.jdbc:ojdbc11'   // 운영용 Oracle 
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        ```
+
+    2. application.properties DB, JPA 설정 추가
+        ```properties
+        ## DB설정
+        spring.datasource.url=jdbc:oracle:thin:@localhost:11521:XE
+        spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+        spring.datasource.username=backboard
+        spring.datasource.password=12345
+        # Oracle용
+        spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.OracleDialect
+
+        ## JPA 설정 : create 서버 시작시마다 테이블 새로 생성
+        spring.jpa.hibernate.ddl-auto=update
+        # 테스트시 쿼리 확인
+        spring.jpa.properties.hibernate.format_sql=true
+        spring.jpa.properties.hibernate.show_sql=true
+        logging.level.org.hibernate.type.descriptor.sql=trace
+        ```
+    3. entity.ItemEntity 클래스 생성
+    4. repository.RestaurantRepository 생성
+    5. html 페이지에 저장버튼
+    6. 저장처리 로직 구현
+    
 9. 나중에 추가해야할 부분
     1. [x] 회원가입 후 바로 로그인되는 기능
     2. [x] 로그인한 사람 표시기능
